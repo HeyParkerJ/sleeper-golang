@@ -2,24 +2,21 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
-	"os"
 )
 
 func main() {
-	response, err := http.Get("https://api.sleeper.app/v1/user/445264202878152704/leagues/nfl/2021")
-
+	resp, err := http.Get("https://api.sleeper.app/v1/user/445264202878152704")
 	if err != nil {
-		fmt.Print(err.Error())
-		os.Exit(1)
+		log.Fatalln(err)
+	}
+	defer resp.Body.Close()
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatalln(err)
 	}
 
-	responseData, err := ioutil.ReadAll(response.Body)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(string(responseData))
-
+	fmt.Println(string(body))
 }
