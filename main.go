@@ -193,8 +193,8 @@ type RosterMetadata struct {
 }
 
 func main() {
-	// GetUser()
-	// GetLeague()
+	GetUser()
+	GetLeague()
 	GetRoster()
 }
 
@@ -204,7 +204,9 @@ func PrettyPrint(i interface{}) string {
 }
 
 const (
-	baseURL = "https://api.sleeper.app/v1/"
+	baseURL  = "https://api.sleeper.app/v1/"
+	leagueID = "league/654061850773790720"
+	userID   = "user/445264202878152704"
 )
 
 func newClient(url string) (body []byte) {
@@ -223,8 +225,7 @@ func newClient(url string) (body []byte) {
 
 func GetUser() {
 	// user url is the same as the base url
-	userURL := "user/445264202878152704"
-	body := newClient(userURL)
+	body := newClient(userID)
 	var user User
 	if err := json.Unmarshal([]byte(body), &user); err != nil {
 		log.Fatalln(err)
@@ -234,8 +235,7 @@ func GetUser() {
 
 func GetLeague() {
 	// league url via docs https://docs.sleeper.app/#leagues
-	leagueURL := "league/654061850773790720"
-	body := newClient(leagueURL)
+	body := newClient(leagueID)
 	var result League
 	if err := json.Unmarshal([]byte(body), &result); err != nil {
 		log.Fatalln(err)
@@ -244,8 +244,8 @@ func GetLeague() {
 }
 
 func GetRoster() {
-	// league url via docs https://docs.sleeper.app/#getting-rosters-in-a-league
-	rosterURL := "league/654061850773790720/rosters"
+	// roster url via docs https://docs.sleeper.app/#getting-rosters-in-a-league
+	rosterURL := leagueID + "/rosters"
 	body := newClient(rosterURL)
 	var result Roster
 	if err := json.Unmarshal([]byte(body), &result); err != nil {
