@@ -66,6 +66,7 @@ type League struct {
 }
 
 func main() {
+	GetUser()
 	GetLeague()
 }
 
@@ -74,42 +75,40 @@ func PrettyPrint(i interface{}) string {
 	return string(s)
 }
 
-func GetUser() {
-	resp, err := http.Get("https://api.sleeper.app/v1/user/445264202878152704")
+const (
+	baseURL = "https://api.sleeper.app/v1/user/445264202878152704"
+)
+
+func newClient(url string) (body []byte) {
+	newURL := baseURL + url
+	resp, err := http.Get(newURL)
 	if err != nil {
 		log.Fatalln(err)
 	}
 	defer resp.Body.Close()
-
-	body, err := io.ReadAll(resp.Body)
+	body, err = io.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatalln(err)
 	}
+	return body
+}
+
+func GetUser() {
+	body := newClient("")
 	var user User
 	if err := json.Unmarshal([]byte(body), &user); err != nil {
 		log.Fatalln(err)
 	}
-
 	fmt.Println(PrettyPrint(user))
 }
 
 func GetLeague() {
-	resp, err := http.Get("https://api.sleeper.app/v1/user/445264202878152704/leagues/nfl/2021")
-	if err != nil {
-		log.Fatalln(err)
-	}
-	defer resp.Body.Close()
-
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatalln(err)
-	}
+	body := newClient("/leagues/nfl/2021")
 	var result []League
 	if err := json.Unmarshal([]byte(body), &result); err != nil {
 		log.Fatalln(err)
 	}
 	for _, v := range result {
-		fmt.Println(PrettyPrint(v.ScoringSettings))
+		fmt.Println(PrettyPrint(v))
 	}
-
 }
