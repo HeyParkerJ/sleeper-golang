@@ -8,6 +8,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"strconv"
 )
 
 const (
@@ -65,6 +66,62 @@ func GetUsers() {
 	userURL := leagueID + "/users"
 	body := newClient(userURL)
 	var result []api.Roster
+	if err := json.Unmarshal([]byte(body), &result); err != nil {
+		log.Fatalln(err)
+	}
+	fmt.Println(tools.PrettyPrint(result))
+}
+
+func GetMatchups() {
+	// users url via docs https://docs.sleeper.app/#getting-matchups-in-a-league
+	for i := 1; i < 30; i++ {
+		i := strconv.Itoa(i)
+		matchupsURL := leagueID + "/matchups/" + i
+		body := newClient(matchupsURL)
+		var result []api.Matchups
+		if err := json.Unmarshal([]byte(body), &result); err != nil {
+			log.Fatalln(err)
+		}
+		if len(result) == 0 {
+			break
+		}
+		fmt.Println(tools.PrettyPrint(result))
+	}
+}
+
+func GetTransactions() {
+	// users url via docs https://docs.sleeper.app/#getting-matchups-in-a-league
+	for i := 1; i >= 1; i++ {
+		i := strconv.Itoa(i)
+		transactionsURL := leagueID + "/transactions/" + i
+		body := newClient(transactionsURL)
+		var result []api.Transactions
+		if err := json.Unmarshal([]byte(body), &result); err != nil {
+			log.Fatalln(err)
+		}
+		if len(result) == 0 {
+			break
+		}
+		fmt.Println(tools.PrettyPrint(result))
+	}
+}
+
+func GetTradedPicks() {
+	// roster url via docs https://docs.sleeper.app/#get-traded-picks
+	tradedPicksURL := leagueID + "/traded_picks"
+	body := newClient(tradedPicksURL)
+	var result []api.TradedPicks
+	if err := json.Unmarshal([]byte(body), &result); err != nil {
+		log.Fatalln(err)
+	}
+	fmt.Println(tools.PrettyPrint(result))
+}
+
+func GetNflState() {
+	// roster url via docs https://docs.sleeper.app/#get-nfl-state
+	nflStateURL := "state/nfl"
+	body := newClient(nflStateURL)
+	var result api.NflState
 	if err := json.Unmarshal([]byte(body), &result); err != nil {
 		log.Fatalln(err)
 	}

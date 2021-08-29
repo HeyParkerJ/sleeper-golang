@@ -8,9 +8,13 @@ import (
 type App struct{}
 
 func (app *App) Run() error {
-	handler.GetRoster()
-	handler.GetLeague()
-	handler.GetUsers()
+	// handler.GetRoster()
+	// handler.GetLeague()
+	// handler.GetUsers()
+	// handler.GetMatchups()
+	// handler.GetTransactions()
+	// handler.GetTradedPicks()
+	handler.GetNflState()
 
 	return nil
 }
