@@ -1,9 +1,25 @@
 package main
 
 import (
-	"github.com/MasEo9/sleeper-golang/handler"
+	"fmt"
+	"github.com/MasEo9/sleeper-golang/Internal/http"
 )
 
+type App struct{}
+
+func (app *App) Run() error {
+	handler.GetRoster()
+	handler.GetLeague()
+	handler.GetUsers()
+
+	return nil
+}
+
 func main() {
-	handler.GetUser()
+	fmt.Println("Running sleeper datafetch")
+	app := App{}
+	if err := app.Run(); err != nil {
+		fmt.Println("Error running sleeper datafetch")
+		fmt.Println(err)
+	}
 }
