@@ -1,23 +1,14 @@
-package main
+package client
 
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/MasEo9/sleeper-golang/Internal/api"
+	"github.com/MasEo9/sleeper-golang/tools"
 	"io"
 	"log"
 	"net/http"
 )
-
-func main() {
-	GetUser()
-	GetLeague()
-	GetRoster()
-}
-
-func PrettyPrint(i interface{}) string {
-	s, _ := json.MarshalIndent(i, "", "\t")
-	return string(s)
-}
 
 const (
 	baseURL  = "https://api.sleeper.app/v1/"
@@ -41,41 +32,41 @@ func newClient(url string) (body []byte) {
 
 func GetUser() {
 	body := newClient(userID)
-	var user User
+	var user api.User
 	if err := json.Unmarshal([]byte(body), &user); err != nil {
 		log.Fatalln(err)
 	}
-	fmt.Println(PrettyPrint(user))
+	fmt.Println(tools.PrettyPrint(user))
 }
 
 func GetLeague() {
 	// league url via docs https://docs.sleeper.app/#leagues
 	body := newClient(leagueID)
-	var result League
+	var result api.League
 	if err := json.Unmarshal([]byte(body), &result); err != nil {
 		log.Fatalln(err)
 	}
-	fmt.Println(PrettyPrint(result))
+	fmt.Println(tools.PrettyPrint(result))
 }
 
 func GetRoster() {
 	// roster url via docs https://docs.sleeper.app/#getting-rosters-in-a-league
 	rosterURL := leagueID + "/rosters"
 	body := newClient(rosterURL)
-	var result []Roster
+	var result []api.Roster
 	if err := json.Unmarshal([]byte(body), &result); err != nil {
 		log.Fatalln(err)
 	}
-	fmt.Println(PrettyPrint(result))
+	fmt.Println(tools.PrettyPrint(result))
 }
 
 func GetUsers() {
 	// users url via docs https://docs.sleeper.app/#getting-users-in-a-league
 	userURL := leagueID + "/users"
 	body := newClient(userURL)
-	var result []Roster
+	var result []api.Roster
 	if err := json.Unmarshal([]byte(body), &result); err != nil {
 		log.Fatalln(err)
 	}
-	fmt.Println(PrettyPrint(result))
+	fmt.Println(tools.PrettyPrint(result))
 }
