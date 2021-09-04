@@ -11,6 +11,7 @@ type Roster struct {
 	OwnerID   string         `json:"owner_id"`
 	Metadata  RosterMetadata `json:"metadata,omitempty"`
 }
+
 type RosterStats struct {
 	Wins             int `json:"wins"`
 	WaiverPosition   int `json:"waiver_position"`

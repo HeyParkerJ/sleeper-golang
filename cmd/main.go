@@ -14,8 +14,12 @@ func (app *App) Run() error {
 	// handler.GetMatchups()
 	// handler.GetTransactions()
 	// handler.GetTradedPicks()
-	handler.GetNflState()
-
+	// handler.GetNflState()
+	// handler.GetLeagueDraft()
+	// handler.GetDraftPicks()
+	// handler.GetTradedDraftPicks()
+	// handler.GetPlayers()
+	handler.GetStats()
 	return nil
 }
 
