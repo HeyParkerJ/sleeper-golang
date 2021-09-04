@@ -18,8 +18,7 @@ func (app *App) Run() error {
 	// handler.GetLeagueDraft()
 	// handler.GetDraftPicks()
 	// handler.GetTradedDraftPicks()
-	// handler.GetPlayers()
-	handler.GetStats()
+	handler.GetPlayers()
 	return nil
 }
 
