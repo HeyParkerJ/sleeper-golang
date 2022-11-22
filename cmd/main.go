@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/MasEo9/sleeper-golang/Internal/http"
 )
 
 type App struct{}
@@ -11,14 +10,14 @@ func (app *App) Run() error {
 	// handler.GetRoster()
 	// handler.GetLeague()
 	// handler.GetUsers()
-	// handler.GetMatchups()
+	handler.GetMatchups()
 	// handler.GetTransactions()
 	// handler.GetTradedPicks()
 	// handler.GetNflState()
 	// handler.GetLeagueDraft()
 	// handler.GetDraftPicks()
 	// handler.GetTradedDraftPicks()
-	handler.GetPlayers()
+	// handler.GetPlayers()
 	return nil
 }
 

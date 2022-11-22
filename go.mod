@@ -1,4 +1,4 @@
-module github.com/MasEo9/sleeper-golang
+module github.com/heyparkerj/sleeper-golang
 
 go 1.16
 

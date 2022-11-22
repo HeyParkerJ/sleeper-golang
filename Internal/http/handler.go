@@ -3,18 +3,19 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/MasEo9/sleeper-golang/Internal/api"
-	"github.com/MasEo9/sleeper-golang/tools"
 	"io"
 	"log"
 	"net/http"
 	"strconv"
+
+	"github.com/heyparkerj/sleeper-golang/Internal/api"
+	"github.com/heyparkerj/sleeper-golang/tools"
 )
 
 const (
 	baseURL  = "https://api.sleeper.app/v1/"
-	leagueID = "league/654061850773790720"
-	userID   = "user/445264202878152704"
+	leagueID = "league/852771702776672256"
+	// userID   = "user/"
 )
 
 func newClient(url string) (body []byte) {
